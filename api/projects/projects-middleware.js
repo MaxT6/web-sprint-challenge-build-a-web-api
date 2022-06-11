@@ -19,13 +19,13 @@ async function validateProjectId(req, res, next) {
 
 
 function validateProject(req, res, next) {
-  const { name, description} = req.body
+  const { name, description, completed} = req.body
   if (!name || !name.trim()) {
     res.status(400).json({ message: "missing required name field"})
   } else if (!description || !description.trim()) {
     res.status(400).json({ message: "missign required description field"})
-  // } else if (completed === false) {
-  //     res.status(400).json({ message: "completed status must be set to true"})
+  } else if (completed !== true && completed !== false) {
+      res.status(400).json({ message: "completed status must be set to true"})
   } else {
     req.name = name.trim()
     req.description = description.trim()
