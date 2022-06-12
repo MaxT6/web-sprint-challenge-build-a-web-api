@@ -28,8 +28,22 @@ router.delete('/:id', validateActionId, async (req, res, next) => {
 
 router.post('/', validateAction, (req, res, next) => {
   Actions.insert(req.body)
-  .then(newAction => {
-    res.status(201).json(newAction)
+      .then(newAction => {
+          res.status(201).json(newAction)
+      })
+      .catch(next)
+})
+
+router.put('/:id', validateAction, validateActionId, (req, res, next) => {
+  Actions.update(req.params.id, req.body) //pending
+  .then(updatedActions => {
+    res.status(200).json({
+      project_id: updatedActions.project_id,
+      description: updatedActions.description,
+      notes: updatedActions.notes,
+      completed: updatedActions.completed,
+      id: updatedActions.id
+    })
   })
   .catch(next)
 })

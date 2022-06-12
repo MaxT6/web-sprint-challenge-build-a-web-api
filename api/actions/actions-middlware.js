@@ -17,9 +17,10 @@ async function validateActionId(req, res, next) {
   }
 }
 
+
 function validateAction(req, res, next) {
   const { project_id, description, notes, completed} = req.body
-  if (!project_id || !project_id.trim()) {
+  if (!project_id) {
     res.status(400).json({ message: "missing required project_id field"})
   } else if (!description || !description.trim()) {
     res.status(400).json({ message: "missign required description field"})
@@ -28,7 +29,7 @@ function validateAction(req, res, next) {
   } else if (completed !== true && completed !== false) {
       res.status(400).json({ message: "completed status must be set to true or false"})
   } else {
-    req.project_id = project_id.trim()
+    req.project_id = project_id
     req.description = description.trim()
     req.notes = notes.trim()
     next()
