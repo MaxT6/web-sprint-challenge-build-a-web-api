@@ -28,7 +28,7 @@ router.get('/:id', validateProjectId, (req, res, next) => {
 router.delete('/:id', validateProjectId, async (req, res, next) => {
   try {
     const result = await Projects.remove(req.params.id)
-    res.json(req.user)
+    res.json(req.project)
   } catch(err) {
     next(err)
   }

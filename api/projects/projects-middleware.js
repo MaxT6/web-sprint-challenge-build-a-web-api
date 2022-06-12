@@ -25,7 +25,7 @@ function validateProject(req, res, next) {
   } else if (!description || !description.trim()) {
     res.status(400).json({ message: "missign required description field"})
   } else if (completed !== true && completed !== false) {
-      res.status(400).json({ message: "completed status must be set to true"})
+      res.status(400).json({ message: "completed status must be set to true or false"})
   } else {
     req.name = name.trim()
     req.description = description.trim()
