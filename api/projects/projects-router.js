@@ -2,16 +2,8 @@
 const express = require('express');
 const Projects = require('./projects-model')
 const router = express.Router()
+const Actions = require('../actions/actions-model')
 const { validateProjectId, validateProject } = require('./projects-middleware')
-
-
-// router.get('/api/projects', (req, res, next) => {
-//   Projects.find()
-//   .then(projects => {
-//     res.json(projects)
-//   })
-//   .catch(next)
-// })
 
 router.get('/', (req, res, next) => {
   Projects.get()
@@ -51,9 +43,16 @@ router.put('/:id', validateProjectId, validateProject, (req, res, next) => {
       completed: updatedProject.completed
     })
   })
-  // .then(updatedProject => {
-  //   res.json(updatedProject)
-  // })
+  .catch(next)
+})
+
+router.get('/:id/actions', (req, res, next) => {
+  Actions.get()
+  .then(actions => {
+    // console.log("req.body", req.body, "ID", req.params.id, "Proj ID", actions.project_id)
+    let projArr = actions.filter(project => project.project_id == req.params.id) 
+      res.json(projArr)
+  })
   .catch(next)
 })
 
